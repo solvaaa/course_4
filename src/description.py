@@ -10,16 +10,16 @@ class Description:
         return self.name
 
     def __lt__(self, other):
-        if (self.salary is not None) and (self.salary['from'] is not None):
-            if (other.salary is not None) and (other.salary['from'] is not None):
+        if self.salary['from'] is not None:
+            if other.salary['from'] is not None:
                 return self.salary['from'] < other.salary['from']
             else:
                 return False
-        elif (other.salary is not None) and (other.salary['from'] is not None):
-            return True
         else:
-            return False
+            return other.salary['from'] is not None
 
     def __eq__(self, other):
-        if (self.salary is not None) and (other.salary is not None):
-            return self.salary['from'] == other.salary['from']
+        return self.salary['from'] == other.salary['from']
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
