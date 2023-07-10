@@ -5,6 +5,7 @@ class Description:
         self.link = link
         self.salary = salary
         self.description = description
-        #self.working_condition = working_condition
-        #self.job_requirements = job_requirements
+
+    def __str__(self):
+        return self.name
 
