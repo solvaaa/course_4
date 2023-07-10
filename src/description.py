@@ -23,3 +23,7 @@ class Description:
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def __le__(self, other):
+        return self.__lt__(other) or self.__eq__(other)
+
