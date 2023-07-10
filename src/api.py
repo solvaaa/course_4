@@ -36,7 +36,7 @@ class HeadHunter(Api):
                     'to': info['salary']['to']
                 }
             else:
-                salary = None
+                salary = {'from': None, 'to': None}
             if info['snippet'] is not None:
                 snippet = []
                 for key, value in info['snippet'].items():
@@ -76,13 +76,10 @@ class SuperJob(Api):
             id = info['id']
             name = info['profession']
             link = info['link']
-            if (info['payment_from'] or info['payment_to']) is not None:
-                salary = {
-                    'from': info['payment_from'],
-                    'to': info['payment_to']
-                }
-            else:
-                salary = None
+            salary = {}
+            salary['from'] = info['payment_from'] if info['payment_from'] else None
+            salary['to'] = info['payment_to'] if info['payment_to'] else None
+
             description = info['candidat']
             item = {
                 'id': id,
