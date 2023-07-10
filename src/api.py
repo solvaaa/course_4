@@ -1,6 +1,7 @@
 import requests
 import json
 from abc import ABC, abstractmethod
+from api_key import SJ_KEY
 
 
 class Api(ABC):
@@ -52,13 +53,39 @@ class HeadHunter(Api):
 
 
 class SuperJob(Api):
+    api_key = SJ_KEY
+    header = {'X-Api-App-Id': api_key}
+
     def __init__(self):
         pass
 
     def get_info(self, key):
-        pass
+        params = {'keyword': key}
+        response = requests.get('https://api.superjob.ru/2.0/vacancies', params, headers=self.header)
+        items = response.json()['objects']
+        return items
 
-
-hh = HeadHunter()
-output = hh.output_info('Python-разработчик')
-print(*output, sep='\n')
+    def output_info(self, key):
+        superjob = self.get_info(key)
+        output = []
+        for info in superjob:
+            id = info['id']
+            name = info['profession']
+            link = info['link']
+            if (info['payment_from'] or info['payment_to']) is not None:
+                salary = {
+                    'from': info['payment_from'],
+                    'to': info['payment_to']
+                }
+            else:
+                salary = None
+            description = info['candidat']
+            item = {
+                'id': id,
+                'name': name,
+                'link': link,
+                'salary': salary,
+                'description': description
+            }
+            output.append(item)
+        return output
