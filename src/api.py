@@ -9,6 +9,10 @@ class Api(ABC):
     def get_info(self, key):
         pass
 
+    @abstractmethod
+    def output_info(self, key):
+        pass
+
 
 class HeadHunter(Api):
     def __init__(self):
