@@ -1,1 +1,2 @@
-SJ_KEY = None
+#можно записать ключ доступа к SuperJob в эту переменную
+JS_KEY = None
