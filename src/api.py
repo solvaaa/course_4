@@ -70,7 +70,7 @@ class SuperJob(Api):
         pass
 
     def get_info(self, key):
-        params = {'keyword': key, 'currency': 'rub', 'count': 10}
+        params = {'keyword': key, 'currency': 'rub', 'count': 100}
         response = requests.get('https://api.superjob.ru/2.0/vacancies', params, headers=self.header)
         assert response.status_code == 200
         items = response.json()['objects']
