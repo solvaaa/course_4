@@ -17,7 +17,7 @@ class Saver(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies_by_keyword(self, keyword):
+    def get_by_keyword(self, keyword):
         pass
 
 
@@ -64,7 +64,7 @@ class JsonSaver(Saver):
             file.truncate(0)
             json.dump(descriptions, file)
 
-    def get_vacancies_by_keyword(self, keyword):
+    def get_by_keyword(self, keyword):
         descriptions = self.read_file()
         keyword = keyword.lower()
         filtered_descriptions = []

@@ -28,7 +28,7 @@ class Description:
         return self.__lt__(other) or self.__eq__(other)
 
     @staticmethod
-    def filter_vacancies_with_salary(descriptions):
+    def filter_with_salary(descriptions):
         filtered_descriptions = []
         for description in descriptions:
             if description.salary['from'] is not None:
@@ -36,5 +36,5 @@ class Description:
         return filtered_descriptions
 
     @staticmethod
-    def sort_vacancies_by_salary(descriptions):
+    def sort_by_salary(descriptions):
         return sorted(descriptions, reverse=True)
