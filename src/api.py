@@ -44,6 +44,8 @@ class HeadHunter(Api):
                 snippet = []
                 for key, value in info['snippet'].items():
                     if value is not None:
+                        value = value.replace('<highlighttext>', '')
+                        value = value.replace('</highlighttext>', '')
                         snippet.append(value)
                 description = ' '.join(snippet)
             else:
