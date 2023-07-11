@@ -27,3 +27,10 @@ class Description:
     def __le__(self, other):
         return self.__lt__(other) or self.__eq__(other)
 
+    @staticmethod
+    def filter_vacancies_with_salary(descriptions):
+        filtered_descriptions = []
+        for description in descriptions:
+            if description.salary['from'] is not None:
+                filtered_descriptions.append(description)
+        return filtered_descriptions
