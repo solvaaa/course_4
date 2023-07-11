@@ -72,8 +72,3 @@ class JsonSaver(Saver):
             if keyword in description['name'].lower() or keyword in description['description'].lower():
                 filtered_descriptions.append(description)
         return filtered_descriptions
-
-#json_saver = JSONSaver()
-#json_saver.add_vacancy(vacancy)
-#json_saver.get_vacancies_by_salary("100 000-150 000 руб.")
-#json_saver.delete_vacancy(vacancy)
