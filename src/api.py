@@ -1,5 +1,4 @@
 import requests
-import json
 from abc import ABC, abstractmethod
 from api_key import SJ_KEY
 
