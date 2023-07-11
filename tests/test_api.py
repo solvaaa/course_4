@@ -3,12 +3,12 @@ from src.api import HeadHunter, SuperJob
 
 @pytest.fixture
 def hh():
-    return HeadHunter()
+    return HeadHunter(per_page=20)
 
 
 @pytest.fixture
 def sj():
-    return SuperJob()
+    return SuperJob(per_page=20)
 
 
 def test_headhunter_get_info(hh):
