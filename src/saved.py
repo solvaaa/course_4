@@ -30,6 +30,8 @@ class JsonSaver(Saver):
 
     def add_description(self, vacancies):
         descriptions = self.read_file()
+        if isinstance(vacancies, Description):
+            vacancies = [vacancies]
         for vacancy in vacancies:
             item = {
                 'id': vacancy.id,
