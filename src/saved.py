@@ -16,6 +16,10 @@ class Saver(ABC):
     def delete_description(self, vacancy):
         pass
 
+    @abstractmethod
+    def get_vacancies_by_keyword(self, keyword):
+        pass
+
 
 class JsonSaver(Saver):
     def __init__(self, path='descriptions.json'):
@@ -59,6 +63,15 @@ class JsonSaver(Saver):
         with open(self.path, 'w', encoding='utf-8') as file:
             file.truncate(0)
             json.dump(descriptions, file)
+
+    def get_vacancies_by_keyword(self, keyword):
+        descriptions = self.read_file()
+        keyword = keyword.lower()
+        filtered_descriptions = []
+        for description in descriptions:
+            if keyword in description['name'].lower() or keyword in description['description'].lower():
+                filtered_descriptions.append(description)
+        return filtered_descriptions
 
 #json_saver = JSONSaver()
 #json_saver.add_vacancy(vacancy)
