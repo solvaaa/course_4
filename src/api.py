@@ -18,9 +18,8 @@ class HeadHunter(Api):
         pass
 
     def get_info(self, key):
-        params = {"area": 113, "text": key, "per_page": 10}
+        params = {"area": 113, "text": key, "per_page": 20}
         response = requests.get('https://api.hh.ru/vacancies', params)
-        print(response.json())
         assert response.status_code == 200
         return response.json()['items']
 
