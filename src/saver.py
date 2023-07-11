@@ -5,7 +5,7 @@ from src.description import Description
 
 class Saver(ABC):
     @abstractmethod
-    def read_file(self):
+    def read_datafile(self):
         pass
 
     @abstractmethod
@@ -25,7 +25,7 @@ class JsonSaver(Saver):
     def __init__(self, path='descriptions.json'):
         self.path = path
 
-    def read_file(self):
+    def read_datafile(self):
         try:
             with open(self.path, 'r', encoding='utf-8') as file:
                 text = file.read()
@@ -37,7 +37,8 @@ class JsonSaver(Saver):
             return []
 
     def add_descriptions(self, vacancies):
-        descriptions = self.read_file()
+        descriptions = self.read_datafile()
+        print(descriptions)
         if isinstance(vacancies, Description):
             vacancies = [vacancies]
         for vacancy in vacancies:
@@ -54,7 +55,7 @@ class JsonSaver(Saver):
             json.dump(descriptions, file)
 
     def delete_description(self, vacancy):
-        descriptions = self.read_file()
+        descriptions = self.read_datafile()
         for i in range(len(descriptions)):
             if descriptions[i]['id'] == vacancy.id:
                 print('deleted')
@@ -65,7 +66,7 @@ class JsonSaver(Saver):
             json.dump(descriptions, file)
 
     def get_by_keyword(self, keyword):
-        descriptions = self.read_file()
+        descriptions = self.read_datafile()
         keyword = keyword.lower()
         filtered_descriptions = []
         for description in descriptions:
