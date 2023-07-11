@@ -1,6 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 from src.description import Description
+import datetime
 
 
 class Saver(ABC):
@@ -50,7 +51,7 @@ class JsonSaver(Saver):
                 'date_published': vacancy.date_published
             }
             descriptions.append(item)
-        with open(self.path, 'w+', encoding='utf-8') as file:
+        with open(self.path, 'w', encoding='utf-8') as file:
             file.truncate(0)
             json.dump(descriptions, file)
 
