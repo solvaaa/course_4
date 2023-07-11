@@ -1,4 +1,5 @@
 import requests
+import os
 from abc import ABC, abstractmethod
 from api_key import SJ_KEY
 import datetime
@@ -65,7 +66,7 @@ class HeadHunter(Api):
 
 
 class SuperJob(Api):
-    api_key = SJ_KEY
+    api_key = os.getenv('SJ_KEY')
     header = {'X-Api-App-Id': api_key}
 
     def __init__(self, per_page=100):
