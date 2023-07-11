@@ -1,6 +1,7 @@
 import requests
 from abc import ABC, abstractmethod
 from api_key import SJ_KEY
+import datetime
 
 
 class Api(ABC):
@@ -45,12 +46,16 @@ class HeadHunter(Api):
                 description = ' '.join(snippet)
             else:
                 description = None
+
+            date_raw = info['published_at']
+            date_published = datetime.datetime.strptime(date_raw, '%Y-%m-%dT%H:%M:%S%z')
             item = {
                 'id': id,
                 'name': name,
                 'link': link,
                 'salary': salary,
-                'description': description
+                'description': description,
+                'date_published': date_published
             }
             output.append(item)
         return output
@@ -64,7 +69,7 @@ class SuperJob(Api):
         pass
 
     def get_info(self, key):
-        params = {'keyword': key, 'currency': 'rub', 'count': 100}
+        params = {'keyword': key, 'currency': 'rub', 'count': 10}
         response = requests.get('https://api.superjob.ru/2.0/vacancies', params, headers=self.header)
         assert response.status_code == 200
         items = response.json()['objects']
@@ -80,15 +85,18 @@ class SuperJob(Api):
             salary = {}
             salary['from'] = info['payment_from'] if info['payment_from'] else None
             salary['to'] = info['payment_to'] if info['payment_to'] else None
-
             description = info['candidat']
+
+            date_raw = info['date_published']
+            date_published = datetime.datetime.fromtimestamp(date_raw)
+            print(date_published)
             item = {
                 'id': id,
                 'name': name,
                 'link': link,
                 'salary': salary,
-                'description': description
+                'description': description,
+                'date_published': date_published
             }
             output.append(item)
-        print('len(output) = ', len(output))
         return output
