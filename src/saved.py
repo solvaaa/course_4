@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from src.description import Description
 
 
 class Saver(ABC):
@@ -8,7 +9,7 @@ class Saver(ABC):
         pass
 
     @abstractmethod
-    def add_description(self):
+    def add_description(self, vacancies):
         pass
 
 
@@ -27,7 +28,20 @@ class JsonSaver(Saver):
         except FileNotFoundError:
             return []
 
-
+    def add_description(self, vacancies):
+        descriptions = self.read_file()
+        for vacancy in vacancies:
+            item = {
+                'id': vacancy.id,
+                'name': vacancy.name,
+                'link': vacancy.link,
+                'salary': vacancy.salary,
+                'description': vacancy.description
+            }
+            descriptions.append(item)
+        with open(self.path, 'w+', encoding='utf-8') as file:
+            file.truncate(0)
+            json.dump(descriptions, file)
 
 #json_saver = JSONSaver()
 #json_saver.add_vacancy(vacancy)
