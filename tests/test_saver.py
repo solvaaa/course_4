@@ -16,6 +16,9 @@ def test_read_file():
         assert isinstance(desc['id'], int)
         assert isinstance(desc['name'], str)
         assert isinstance(desc['salary'], dict)
+    empty_saver = JsonSaver(path='empty')
+    empty_read = empty_saver.read_datafile()
+    assert len(empty_read) == 0
 
 
 def test_add_description(description_to_add):
