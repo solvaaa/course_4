@@ -1,1 +1,1 @@
-SJ_KEY =
+SJ_KEY = None

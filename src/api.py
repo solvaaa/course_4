@@ -67,6 +67,8 @@ class HeadHunter(Api):
 
 class SuperJob(Api):
     api_key = os.getenv('SJ_KEY')
+    if api_key is None:
+        api_key = SJ_KEY
     header = {'X-Api-App-Id': api_key}
 
     def __init__(self, per_page=100):
