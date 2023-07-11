@@ -20,6 +20,7 @@ class HeadHunter(Api):
     def get_info(self, key):
         params = {"area": 113, "text": key, "per_page": 10}
         response = requests.get('https://api.hh.ru/vacancies', params)
+        assert response.status_code == 200
         return response.json()['items']
 
     def output_info(self, key):
@@ -65,6 +66,7 @@ class SuperJob(Api):
     def get_info(self, key):
         params = {'keyword': key}
         response = requests.get('https://api.superjob.ru/2.0/vacancies', params, headers=self.header)
+        assert response.status_code == 200
         items = response.json()['objects']
         return items
 
