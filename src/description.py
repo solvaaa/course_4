@@ -1,10 +1,11 @@
 class Description:
-    def __init__(self, id, name, link, salary, description):
+    def __init__(self, id, name, link, salary, description, date_published):
         self.id = id
         self.name = name
         self.link = link
         self.salary = salary
         self.description = description
+        self.date_published = date_published
 
     def __str__(self):
         return self.name
