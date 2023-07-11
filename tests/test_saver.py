@@ -31,7 +31,13 @@ def test_add_description(description_to_add):
 
 
 def test_delete_description(description_to_add):
+    with open('test_read.json', 'r', encoding='utf-8') as file:
+        raw_file = file.read()
+    with open('test.json', 'w+', encoding='utf-8') as file:
+        file.truncate(0)
+        file.write(raw_file)
     saver = JsonSaver(path='test.json')
+    saver.add_descriptions(description_to_add)
     saver.delete_description(description_to_add)
     new_descriptions = saver.read_datafile()
     assert len(new_descriptions) == 20
