@@ -5,7 +5,7 @@ from src.description import Description
 
 @pytest.fixture
 def description_to_add():
-    return Description(10000000, 'name1', 'https://1', {'from': 10000, 'to': 15000}, 'desc1')
+    return Description(10000000, 'name1', 'https://1', {'from': 10000, 'to': 15000}, 'desc1', 0)
 
 
 def test_read_file():
