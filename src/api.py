@@ -20,6 +20,7 @@ class HeadHunter(Api):
     def get_info(self, key):
         params = {"area": 113, "text": key, "per_page": 10}
         response = requests.get('https://api.hh.ru/vacancies', params)
+        print(response.json())
         assert response.status_code == 200
         return response.json()['items']
 
@@ -27,7 +28,7 @@ class HeadHunter(Api):
         hh_output = self.get_info(key)
         output = []
         for info in hh_output:
-            id = info['id']
+            id = int(info['id'])
             name = info['name']
             link = info['alternate_url']
             if info['salary'] is not None:
@@ -74,7 +75,7 @@ class SuperJob(Api):
         superjob = self.get_info(key)
         output = []
         for info in superjob:
-            id = info['id']
+            id = int(info['id'])
             name = info['profession']
             link = info['link']
             salary = {}
