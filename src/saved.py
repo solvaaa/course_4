@@ -9,7 +9,11 @@ class Saver(ABC):
         pass
 
     @abstractmethod
-    def add_description(self, vacancies):
+    def add_descriptions(self, vacancies):
+        pass
+
+    @abstractmethod
+    def delete_description(self, vacancy):
         pass
 
 
@@ -28,7 +32,7 @@ class JsonSaver(Saver):
         except FileNotFoundError:
             return []
 
-    def add_description(self, vacancies):
+    def add_descriptions(self, vacancies):
         descriptions = self.read_file()
         if isinstance(vacancies, Description):
             vacancies = [vacancies]
@@ -42,6 +46,17 @@ class JsonSaver(Saver):
             }
             descriptions.append(item)
         with open(self.path, 'w+', encoding='utf-8') as file:
+            file.truncate(0)
+            json.dump(descriptions, file)
+
+    def delete_description(self, vacancy):
+        descriptions = self.read_file()
+        for i in range(len(descriptions)):
+            if descriptions[i]['id'] == vacancy.id:
+                print('deleted')
+                del descriptions[i]
+                break
+        with open(self.path, 'w', encoding='utf-8') as file:
             file.truncate(0)
             json.dump(descriptions, file)
 
