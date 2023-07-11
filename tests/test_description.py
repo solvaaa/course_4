@@ -4,17 +4,17 @@ from src.description import Description
 
 @pytest.fixture
 def description1():
-    return Description(12345678, 'name1', 'https://1', {'from': 10000, 'to': 15000}, 'desc1')
+    return Description(12345678, 'name1', 'https://1', {'from': 10000, 'to': 15000}, 'desc1', 0)
 
 
 @pytest.fixture
 def description2():
-    return Description(12345888, 'name2', 'https://2', {'from': 12000, 'to': 20000}, 'desc2')
+    return Description(12345888, 'name2', 'https://2', {'from': 12000, 'to': 20000}, 'desc2', 0)
 
 
 @pytest.fixture
 def description3():
-    return Description(12345998, 'name3', 'https://3', {'from': None, 'to': 20000}, 'desc2')
+    return Description(12345998, 'name3', 'https://3', {'from': None, 'to': 20000}, 'desc2', 0)
 
 
 def test_str(description1):
