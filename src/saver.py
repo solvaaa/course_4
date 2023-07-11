@@ -17,7 +17,7 @@ class Saver(ABC):
         pass
 
     @abstractmethod
-    def get_by_keyword(self, keyword):
+    def get_by_keywords(self, keyword):
         pass
 
 
@@ -38,7 +38,6 @@ class JsonSaver(Saver):
 
     def add_descriptions(self, vacancies):
         descriptions = self.read_datafile()
-        print(descriptions)
         if isinstance(vacancies, Description):
             vacancies = [vacancies]
         for vacancy in vacancies:
@@ -47,7 +46,8 @@ class JsonSaver(Saver):
                 'name': vacancy.name,
                 'link': vacancy.link,
                 'salary': vacancy.salary,
-                'description': vacancy.description
+                'description': vacancy.description,
+                'date_published': vacancy.date_published
             }
             descriptions.append(item)
         with open(self.path, 'w+', encoding='utf-8') as file:
@@ -65,11 +65,18 @@ class JsonSaver(Saver):
             file.truncate(0)
             json.dump(descriptions, file)
 
-    def get_by_keyword(self, keyword):
+    def get_by_keywords(self, keywords):
         descriptions = self.read_datafile()
-        keyword = keyword.lower()
+        keywords = keywords.lower().split()
         filtered_descriptions = []
         for description in descriptions:
-            if keyword in description['name'].lower() or keyword in description['description'].lower():
+            found = True
+            for keyword in keywords:
+                if keyword in description['name'].lower() or keyword in description['description'].lower():
+                    continue
+                else:
+                    found = False
+                    break
+            if found:
                 filtered_descriptions.append(description)
         return filtered_descriptions
