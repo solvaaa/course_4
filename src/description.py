@@ -34,3 +34,7 @@ class Description:
             if description.salary['from'] is not None:
                 filtered_descriptions.append(description)
         return filtered_descriptions
+
+    @staticmethod
+    def sort_vacancies_by_salary(descriptions):
+        return sorted(descriptions, reverse=True)
