@@ -4,7 +4,6 @@ from src.saver import JsonSaver
 
 
 def user_interaction():
-    #top_n = input('Введите количество вакансий для вывода в топ:\n')
     hh = HeadHunter()
     sj = SuperJob()
     saver = JsonSaver()
