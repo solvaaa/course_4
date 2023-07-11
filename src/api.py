@@ -5,6 +5,7 @@ import datetime
 
 
 class Api(ABC):
+
     @abstractmethod
     def get_info(self, key):
         pass
@@ -15,11 +16,11 @@ class Api(ABC):
 
 
 class HeadHunter(Api):
-    def __init__(self):
-        pass
+    def __init__(self, per_page=100):
+        self.per_page = per_page
 
     def get_info(self, key):
-        params = {"area": 113, "text": key, "per_page": 100}
+        params = {"area": 113, "text": key, "per_page": self.per_page}
         response = requests.get('https://api.hh.ru/vacancies', params)
         assert response.status_code == 200
         return response.json()['items']
@@ -67,8 +68,8 @@ class SuperJob(Api):
     api_key = SJ_KEY
     header = {'X-Api-App-Id': api_key}
 
-    def __init__(self):
-        pass
+    def __init__(self, per_page=100):
+        self.per_page = per_page
 
     def get_info(self, key):
         params = {'keyword': key, 'currency': 'rub', 'count': 100}
