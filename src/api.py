@@ -6,27 +6,57 @@ import datetime
 
 
 class Api(ABC):
-
+    '''
+    Базовый класс для работы с API сайтов по поиску работы
+    '''
     @abstractmethod
     def get_info(self, key):
+        '''
+        Метод для получения сырой информации из API по ключевому слову.
+        Возвращает список словарей
+        '''
         pass
 
     @abstractmethod
     def output_info(self, key):
+        '''
+        Метод возвращает отформатированную информацию о вакансиях
+        по ключевому слову.
+        Содержит следующие поля:
+        id, name, link, salary, description, date_published
+        salary - словарь с ключами to и from
+        '''
         pass
 
 
 class HeadHunter(Api):
+    '''
+    Класс для получения информации из API HeadHunter.ru
+    '''
     def __init__(self, per_page=100):
+        '''
+        :param per_page: задаёт количество запрашиваемых вакансий. До 100
+        '''
         self.per_page = per_page
 
     def get_info(self, key):
+        '''
+        Метод для получения сырой информации из API по ключевому слову.
+        Возвращает список словарей
+        '''
         params = {"area": 113, "text": key, "per_page": self.per_page}
         response = requests.get('https://api.hh.ru/vacancies', params)
         assert response.status_code == 200, 'Request not successful'
         return response.json()['items']
 
     def output_info(self, key):
+        '''
+        Метод возвращает отформатированную информацию о вакансиях
+        по ключевому слову.
+        Содержит следующие поля:
+        id, name, link, salary, description, date_published
+        salary - словарь с ключами to и from
+        '''
         hh_output = self.get_info(key)
         output = []
         for info in hh_output:
@@ -68,6 +98,9 @@ class HeadHunter(Api):
 
 
 class SuperJob(Api):
+    '''
+    Класс для получения информации из API SuperJob.ru
+    '''
     api_key = os.getenv('SJ_KEY')
     if api_key is None:
         api_key = SJ_KEY
@@ -77,6 +110,10 @@ class SuperJob(Api):
         self.per_page = per_page
 
     def get_info(self, key):
+        '''
+        Метод для получения сырой информации из API по ключевому слову.
+        Возвращает список словарей
+        '''
         params = {'keyword': key, 'currency': 'rub', 'count': 100}
         response = requests.get('https://api.superjob.ru/2.0/vacancies', params, headers=self.header)
         assert response.status_code == 200, 'Request not successful'
@@ -84,6 +121,13 @@ class SuperJob(Api):
         return items
 
     def output_info(self, key):
+        '''
+        Метод возвращает отформатированную информацию о вакансиях
+        по ключевому слову.
+        Содержит следующие поля:
+        id, name, link, salary, description, date_published
+        salary - словарь с ключами to и from
+        '''
         superjob = self.get_info(key)
         output = []
         for info in superjob:
