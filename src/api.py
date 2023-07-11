@@ -50,6 +50,7 @@ class HeadHunter(Api):
             date_raw = info['published_at']
             date_published = datetime.datetime.strptime(date_raw, '%Y-%m-%dT%H:%M:%S%z')
             date_published = datetime.datetime.replace(date_published, tzinfo=None)
+            date_published = date_published.strftime('Y-%m-%dT%H:%M:%S')
             item = {
                 'id': id,
                 'name': name,
@@ -90,6 +91,7 @@ class SuperJob(Api):
 
             date_raw = info['date_published']
             date_published = datetime.datetime.fromtimestamp(date_raw)
+            date_published = date_published.strftime('Y-%m-%dT%H:%M:%S')
 
             item = {
                 'id': id,
