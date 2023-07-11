@@ -39,3 +39,7 @@ class Description:
     @staticmethod
     def sort_by_salary(descriptions):
         return sorted(descriptions, reverse=True)
+
+    @staticmethod
+    def sort_by_date(descriptions):
+        return sorted(descriptions, key=lambda x: x.date_published, reverse = True)
