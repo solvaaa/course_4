@@ -59,7 +59,6 @@ class JsonSaver(Saver):
         descriptions = self.read_datafile()
         for i in range(len(descriptions)):
             if descriptions[i]['id'] == vacancy.id:
-                print('deleted')
                 del descriptions[i]
                 break
         with open(self.path, 'w', encoding='utf-8') as file:
