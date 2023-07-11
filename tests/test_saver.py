@@ -43,7 +43,7 @@ def test_delete_description(description_to_add):
     assert len(new_descriptions) == 20
 
 
-def test_get_by_keyword():
+def test_get_by_keywords():
     saver = JsonSaver(path='test_read.json')
-    filtered = saver.get_by_keyword('junior')
+    filtered = saver.get_by_keywords('junior')
     assert len(filtered) == 7
